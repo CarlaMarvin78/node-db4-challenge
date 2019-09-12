@@ -15,6 +15,13 @@ function getInstructions(recipe_id) {
     .where('recipe_id', recipe_id)
     .orderBy('step_no')
     .select('description');
+
 }
 
-module.exports = {getRecipes, getShoppingList, getInstructions}
+function getRecipesByIngredient(ingredient_id) {
+    return db('recipes').join('recipe_ingredient', {'recipes.id': 'recipe_ingredient.recipe_id'})
+    .where('ingredient_id', ingredient_id)
+    .select('recipes.name');
+}
+
+module.exports = {getRecipes, getShoppingList, getInstructions, getRecipesByIngredient};
